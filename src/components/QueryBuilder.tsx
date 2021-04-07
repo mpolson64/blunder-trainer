@@ -7,8 +7,8 @@ import { generatePuzzles } from "../util/puzzles";
 const { Option } = Select;
 
 interface Props {
-  puzzles: PuzzleInfo[];
-  setPuzzles: Dispatch<SetStateAction<PuzzleInfo[]>>;
+  puzzle: PuzzleInfo;
+  setPuzzle: Dispatch<SetStateAction<PuzzleInfo>>;
 }
 
 interface QueryBuilderFormValues {
@@ -27,6 +27,7 @@ const QueryBuilder = (props: Props) => {
 
   const [form] = Form.useForm();
   const [numGamesLoaded, setNumGamesLoaded] = useState(0);
+  const [puzzles, setPuzzles] = useState<PuzzleInfo[]>([]);
 
   const now = new Date();
   const yesterday = new Date().setDate(now.getDate() - 1);
@@ -36,22 +37,29 @@ const QueryBuilder = (props: Props) => {
   const onFinish = async (values: QueryBuilderFormValues) => {
     const games = await fetchGamesWithAnalysis(values.username, values.since);
     setNumGamesLoaded(games.length);
-    console.log(games);
 
     const puzzles = generatePuzzles(
       games,
       values.username,
       InaccuracyType.Inacuracy
     );
-    props.setPuzzles(puzzles);
-    console.log(puzzles);
+    setPuzzles(puzzles);
   };
 
   const onReset = () => {
     form.resetFields();
 
     setNumGamesLoaded(0);
-    props.setPuzzles([]);
+    setPuzzles([]);
+  };
+
+  const onPlayRandomPuzzle = () => {
+    if (puzzles.length > 0) {
+      props.setPuzzle(puzzles[Math.floor(Math.random() * puzzles.length)]);
+      console.log(props.puzzle);
+    } else {
+      alert("No puzzles loaded!");
+    }
   };
 
   return (
@@ -88,9 +96,12 @@ const QueryBuilder = (props: Props) => {
           {numGamesLoaded}
         </Descriptions.Item>
         <Descriptions.Item label="Puzzles Generated">
-          {props.puzzles.length}
+          {puzzles.length}
         </Descriptions.Item>
       </Descriptions>
+      <Button type="primary" onClick={onPlayRandomPuzzle}>
+        Play Random Puzzle
+      </Button>
     </>
   );
 };

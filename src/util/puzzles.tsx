@@ -48,11 +48,12 @@ const generatePuzzles = (
           return {
             fen: fenBefore,
             move: actualMove,
+            halfmoveNumber: i - 1,
             best: annotatedEval.best,
             variation: annotatedEval.variation,
             inaccuracyType: inacuracyType,
             gameId: game.id,
-          } as PuzzleInfo;
+          };
         }
       }
 

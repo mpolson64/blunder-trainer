@@ -6,6 +6,7 @@ export enum InaccuracyType {
 }
 
 export interface PuzzleInfo {
+  halfmoveNumber: number;
   fen: string;
   move: string;
   best: string;
