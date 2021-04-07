@@ -1,5 +1,6 @@
 import React from "react";
 import { Form, Input, Button, Select } from "antd";
+import { fetchGamesWithAnalysis } from "../util/lichess";
 
 const { Option } = Select;
 
@@ -22,10 +23,12 @@ const QueryBuilder = () => {
   const now = new Date();
   const yesterday = new Date().setDate(now.getDate() - 1);
   const lastWeek = new Date().setDate(now.getDate() - 7);
-  const lastMonth = new Date().setDate(now.getMonth() - 1);
+  const lastMonth = new Date().setMonth(now.getMonth() - 1);
 
-  const onFinish = (values: QueryBuilderFormValues) => {
+  const onFinish = async (values: QueryBuilderFormValues) => {
     console.log(values);
+    const games = await fetchGamesWithAnalysis(values.username, values.since)
+    console.log(games);
   };
 
   const onReset = () => {
