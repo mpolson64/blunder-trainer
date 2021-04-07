@@ -25,7 +25,7 @@ const Home = () => {
           <QueryBuilder puzzle={puzzle} setPuzzle={setPuzzle} />
         </Col>
         <Col flex={2}>
-          <Puzzle />
+          <Puzzle info={puzzle} />
         </Col>
         <Col flex={2}>
           <FullGame

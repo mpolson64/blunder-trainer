@@ -48,7 +48,7 @@ const generatePuzzles = (
           return {
             fen: fenBefore,
             move: actualMove,
-            halfmoveNumber: i - 1,
+            halfmoveNumber: i,
             best: annotatedEval.best,
             variation: annotatedEval.variation,
             inaccuracyType: inacuracyType,
