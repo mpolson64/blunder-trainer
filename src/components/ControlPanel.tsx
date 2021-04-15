@@ -15,7 +15,6 @@ const ControlPanel = (props: Props) => {
   const onPlayRandomPuzzle = () => {
     if (puzzles.length > 0) {
       props.setPuzzle(puzzles[Math.floor(Math.random() * puzzles.length)]);
-      console.log(props.puzzle);
     } else {
       alert("No puzzles loaded!");
     }
@@ -25,7 +24,7 @@ const ControlPanel = (props: Props) => {
     <>
       <QueryBuilder setPuzzles={setPuzzles} />
       <Divider />
-      <LoadedDescriptions puzzles={puzzles}/>
+      <LoadedDescriptions puzzles={puzzles} />
       <Divider />
       <Button type="primary" onClick={onPlayRandomPuzzle}>
         Play Random Puzzle

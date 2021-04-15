@@ -11,7 +11,7 @@ const Home = () => {
     halfmoveNumber: 4,
     move: "d4",
     best: "e4",
-    variation: "e4 e5",
+    variation: ["e4", "e5"],
     inaccuracyType: InaccuracyType.Good,
     gameId: "rNVJjuR3",
   };
@@ -25,10 +25,11 @@ const Home = () => {
           <ControlPanel puzzle={puzzle} setPuzzle={setPuzzle} />
         </Col>
         <Col flex={2}>
-          <Puzzle info={puzzle} />
+          <Puzzle key={puzzle.gameId + puzzle.halfmoveNumber} info={puzzle} />
         </Col>
         <Col flex={2}>
           <FullGame
+            key={puzzle.gameId + puzzle.halfmoveNumber}
             gameId={puzzle.gameId}
             halfmoveNumber={puzzle.halfmoveNumber}
           />

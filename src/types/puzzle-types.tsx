@@ -10,7 +10,7 @@ export interface PuzzleInfo {
   fen: string;
   move: string;
   best: string;
-  variation: string;
+  variation: string[];
   inaccuracyType: InaccuracyType;
   gameId: string;
 }

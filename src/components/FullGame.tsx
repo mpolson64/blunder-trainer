@@ -8,7 +8,9 @@ interface Props {
 const FullGame = (props: Props) => {
   return (
     <iframe
-      src={`https://lichess.org/embed/${props.gameId}#${props.halfmoveNumber}?theme=auto&bg=auto`}
+      src={`https://lichess.org/embed/${props.gameId}#${
+        props.halfmoveNumber - 1
+      }?theme=auto&bg=auto`}
       width={600}
       height={397}
       frameBorder={0}

@@ -21,7 +21,7 @@ export const fetchGamesWithAnalysis = async (
 
   // When only one game exists the NDJSON is automatically parsed by AXIOS
   if (response.data.replace === undefined) {
-    return [response.data as unknown as Game];
+    return [(response.data as unknown) as Game];
   }
 
   const commaSeparated = response.data.replace(/\n/g, ",");
