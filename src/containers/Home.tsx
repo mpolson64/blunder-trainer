@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Row, Col } from "antd";
-import QueryBuilder from "../components/QueryBuilder";
+import ControlPanel from "../components/ControlPanel";
 import Puzzle from "../components/Puzzle";
 import FullGame from "../components/FullGame";
 import { InaccuracyType, PuzzleInfo } from "../types/puzzle-types";
@@ -20,9 +20,9 @@ const Home = () => {
 
   return (
     <>
-      <Row>
+      <Row gutter={[16, 16]}>
         <Col flex={1}>
-          <QueryBuilder puzzle={puzzle} setPuzzle={setPuzzle} />
+          <ControlPanel puzzle={puzzle} setPuzzle={setPuzzle} />
         </Col>
         <Col flex={2}>
           <Puzzle info={puzzle} />
