@@ -16,22 +16,33 @@ const Home = () => {
     gameId: "rNVJjuR3",
   };
 
-  const [puzzle, setPuzzle] = useState<PuzzleInfo>(defaultPuzzle);
+  const [puzzle, setPuzzle] = useState(defaultPuzzle);
+  const [blurred, setBlurred] = useState(true);
 
   return (
     <>
       <Row gutter={[16, 16]}>
         <Col flex={1}>
-          <ControlPanel puzzle={puzzle} setPuzzle={setPuzzle} />
+          <ControlPanel
+            puzzle={puzzle}
+            setPuzzle={setPuzzle}
+            setBlurred={setBlurred}
+          />
         </Col>
         <Col flex={2}>
-          <Puzzle key={puzzle.gameId + puzzle.halfmoveNumber} info={puzzle} />
+          <Puzzle
+            key={puzzle.gameId + puzzle.halfmoveNumber}
+            info={puzzle}
+            setBlurred={setBlurred}
+          />
         </Col>
         <Col flex={2}>
           <FullGame
             key={puzzle.gameId + puzzle.halfmoveNumber}
             gameId={puzzle.gameId}
             halfmoveNumber={puzzle.halfmoveNumber}
+            blurred={blurred}
+            setBlurred={setBlurred}
           />
         </Col>
       </Row>

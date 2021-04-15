@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, SetStateAction, useState } from "react";
 import Chessground from "react-chessground";
 import { Key } from "chessground/types";
 import { CheckCircleTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
@@ -11,12 +11,14 @@ const Chess = typeof ChessJS === "function" ? ChessJS : ChessJS.Chess;
 
 interface Props {
   info: PuzzleInfo;
+  setBlurred: Dispatch<SetStateAction<boolean>>;
 }
 
 const DELAY_MS = 500;
 
 const Puzzle = (props: Props) => {
   console.log(props.info.variation);
+
   const whiteToMove = props.info.halfmoveNumber % 2 === 1;
 
   const [completed, setCompleted] = useState(false);
@@ -43,6 +45,7 @@ const Puzzle = (props: Props) => {
         props.info.variation.length
       ) {
         setCompleted(true);
+        props.setBlurred(false);
         return;
       }
 
@@ -58,6 +61,7 @@ const Puzzle = (props: Props) => {
           props.info.variation.length
         ) {
           setCompleted(true);
+          props.setBlurred(false);
           return;
         }
       }, DELAY_MS);

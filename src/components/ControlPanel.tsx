@@ -7,6 +7,7 @@ import LoadedDescriptions from "./LoadedDescriptions";
 interface Props {
   puzzle: PuzzleInfo;
   setPuzzle: Dispatch<SetStateAction<PuzzleInfo>>;
+  setBlurred: Dispatch<SetStateAction<boolean>>;
 }
 
 const ControlPanel = (props: Props) => {
@@ -14,6 +15,7 @@ const ControlPanel = (props: Props) => {
 
   const onPlayRandomPuzzle = () => {
     if (puzzles.length > 0) {
+      props.setBlurred(true);
       props.setPuzzle(puzzles[Math.floor(Math.random() * puzzles.length)]);
     } else {
       alert("No puzzles loaded!");
