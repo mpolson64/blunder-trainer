@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import Chessground from "react-chessground";
 import { Key } from "chessground/types";
-import { CheckCircleTwoTone, CheckOutlined } from "@ant-design/icons";
+import { CheckCircleTwoTone, CloseCircleTwoTone } from "@ant-design/icons";
 
 import "react-chessground/dist/styles/chessground.css";
 import { PuzzleInfo } from "../types/puzzle-types";
@@ -13,6 +13,8 @@ interface Props {
   info: PuzzleInfo;
 }
 
+const DELAY_MS = 500;
+
 const Puzzle = (props: Props) => {
   console.log(props.info.variation);
   const whiteToMove = props.info.halfmoveNumber % 2 === 1;
@@ -21,6 +23,7 @@ const Puzzle = (props: Props) => {
   const [chess, _setChess] = useState(new Chess(props.info.fen));
   const [fen, setFen] = useState(props.info.fen);
   const [halfmove, setHalfmove] = useState(props.info.halfmoveNumber);
+  const [xVisible, setXVisible] = useState(false);
 
   const onMove = (from: Key, to: Key) => {
     const correct = chess
@@ -36,7 +39,7 @@ const Puzzle = (props: Props) => {
 
     if (to === correct.to && from === correct.from) {
       if (
-        halfmove + 1 - props.info.halfmoveNumber ===
+        halfmove + 1 - props.info.halfmoveNumber >=
         props.info.variation.length
       ) {
         setCompleted(true);
@@ -44,14 +47,27 @@ const Puzzle = (props: Props) => {
       }
 
       // Move opponent
-      chess.move(
-        props.info.variation[halfmove + 1 - props.info.halfmoveNumber]
-      );
-      setFen(chess.fen());
-      setHalfmove(halfmove + 2);
+      setTimeout(() => {
+        chess.move(
+          props.info.variation[halfmove + 1 - props.info.halfmoveNumber]
+        );
+        setFen(chess.fen());
+        setHalfmove(halfmove + 2);
+        if (
+          halfmove + 2 - props.info.halfmoveNumber >=
+          props.info.variation.length
+        ) {
+          setCompleted(true);
+          return;
+        }
+      }, DELAY_MS);
     } else {
-      chess.undo();
-      setFen(chess.fen());
+      setXVisible(true);
+      setTimeout(() => {
+        chess.undo();
+        setFen(chess.fen());
+        setXVisible(false);
+      }, DELAY_MS);
     }
   };
 
@@ -122,6 +138,33 @@ const Puzzle = (props: Props) => {
               textAlign: "center",
             }}
             twoToneColor="#52c41a"
+          />
+        </div>
+        <div
+          style={{
+            position: "absolute",
+            top: 0,
+            bottom: 0,
+            left: 0,
+            right: 0,
+            height: "100%",
+            width: "100%",
+            opacity: xVisible ? 1 : 0,
+            visibility: xVisible ? "visible" : "hidden",
+            transition: ".3s ease",
+            zIndex: 999,
+          }}
+        >
+          <CloseCircleTwoTone
+            style={{
+              fontSize: "196px",
+              position: "absolute",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              textAlign: "center",
+            }}
+            twoToneColor="#ff0000"
           />
         </div>
       </div>
