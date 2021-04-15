@@ -112,6 +112,7 @@ const Puzzle = (props: Props) => {
             lastMove: false,
             check: true,
           }}
+          orientation={whiteToMove ? "white" : "black"}
         />
         <div
           style={{

@@ -8,7 +8,7 @@ import { InaccuracyType, PuzzleInfo } from "../types/puzzle-types";
 const Home = () => {
   const defaultPuzzle: PuzzleInfo = {
     fen: "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
-    halfmoveNumber: 4,
+    halfmoveNumber: 1,
     move: "d4",
     best: "e4",
     variation: ["e4", "e5"],
